@@ -8,9 +8,8 @@ Created on Sat Jan 29 10:40:27 2022
 # Import Statements
 import os
 import numpy as np
-import pandas as pd
 from sklearn.cluster import KMeans
-from sklearn.decomposition import PCA
+import matplotlib.pyplot as plt
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -166,15 +165,25 @@ some sort of measurement on largest deviation between inputs, mean, max, etc.
 
 
 # %%
-num_gestures = 3 # Tune this
-imu_data = None # Training data
-test_data = None # Testing data
+num_gestures = 4 # Tune this
+imu_data = np.reshape(X_train, (X_train.shape[0], -1)) # Training data
+test_data = X_test1 # Testing data
 y = None # Actual testing data labels
 model = KMeans(n_clusters=num_gestures,
-               init="k-means++",
-               random_state=0)
-# model.fit(imu_data) # Train the classifier
-# test_labels = model.predict(test_data)
+               init="k-means++")
+model.fit(imu_data) # Train the classifier
+test_labels = model.predict(test_data)
 
-# %% Gather Accuracies
+# %% Testing
+dataset = rotation3
+gyroX = dataset[:, 0]
+gyroY = dataset[:, 1]
+gyroZ = dataset[:, 2]
+accX = dataset[:, 3]
+accY = dataset[:, 4]
+accZ = dataset[:, 5]
+
+# %% 
+plt.plot(gyroZ)
+
 
